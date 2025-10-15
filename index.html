@@ -135,20 +135,45 @@
             }
         }
         // Fetch and embed the SVG
-        fetch('img/rdc_front.svg')
-            .then(response => response.text())
-            .then(svgText => {
-                // Insert SVG into the DOM
-                document.getElementById('rdcFront').innerHTML = svgText;
-
-                // Get the SVG element
-                var svgElement = document.getElementById('rdcFront').querySelector('svg');
-
-                // Ensure SVG is properly namespaced
-                if (!svgElement) {
-                    console.error('SVG element not found');
-                    return;
-                }
+        // Fetch and embed the SVG
+fetch('img/rdc_front.svg')
+    .then(response => response.text())
+    .then(svgText => {
+        // Insert SVG into the DOM
+        document.getElementById('rdcFront').innerHTML = svgText;
+        
+        // Wait a moment for the DOM to update, then get the SVG element
+        setTimeout(() => {
+            // Try multiple ways to get the SVG element
+            var svgElement = document.getElementById('svg8581'); // Use the actual ID from your SVG
+            
+            // If that doesn't work, try querySelector
+            if (!svgElement) {
+                svgElement = document.getElementById('rdcFront').querySelector('svg');
+            }
+            
+            // If still not found, try first child
+            if (!svgElement) {
+                svgElement = document.getElementById('rdcFront').firstElementChild;
+            }
+            
+            // Ensure SVG is properly found
+            if (!svgElement) {
+                console.error('SVG element not found after trying multiple methods');
+                console.log('rdcFront contents:', document.getElementById('rdcFront').innerHTML.substring(0, 500));
+                return;
+            }
+            
+            console.log('SVG element found:', svgElement);
+            
+            // Now initialize all your clickable areas
+            initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
+            initializeClickableArea(svgElement,'prc-2','equations/number-density/eq02_mass_fraction.html','left');
+            // ... rest of your initializeClickableArea calls ...
+            
+        }, 10); // Small delay to ensure DOM is updated
+    })
+    .catch(err => console.error('Error loading SVG:', err));
                 initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
 				initializeClickableArea(svgElement,'prc-2','equations/number-density/eq02_mass_fraction.html','left');
 				initializeClickableArea(svgElement,'prc-3','equations/number-density/eq03_effective_atomic_mass.html','middle');
@@ -224,5 +249,6 @@
 
 
 </html>
+
 
 
