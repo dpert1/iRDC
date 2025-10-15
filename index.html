@@ -194,17 +194,6 @@ fetch('img/rdc_front.svg')
             
             console.log('SVG element found:', svgElement);
             
-            // Initialize your clickable areas here...
-            initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
-            // ... rest of your initializeClickableArea calls ...
-            
-        }, 100); // Increased delay slightly
-    })
-    .catch(err => {
-        console.error('Error loading SVG:', err);
-        console.error('Error details:', err.message, err.stack);
-    });
-            
                 initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
 				initializeClickableArea(svgElement,'prc-2','equations/number-density/eq02_mass_fraction.html','left');
 				initializeClickableArea(svgElement,'prc-3','equations/number-density/eq03_effective_atomic_mass.html','middle');
@@ -257,10 +246,13 @@ fetch('img/rdc_front.svg')
 				initializeClickableArea(svgElement,'prc-50','equations/reactor-physics/eq50_thermal_non-leakage_probability.html','left');
 				initializeClickableArea(svgElement,'prc-51','equations/reactor-physics/eq51_thermal_utilization_factor.html','middle');
 				initializeClickableArea(svgElement,'prc-52','equations/reactor-physics/eq52_reproduction_factor.html','right');
-           }, 10); // Small delay to ensure DOM is updated
+            }, 100); // Increased delay slightly
     })
-    .catch(err => console.error('Error loading SVG:', err));
-
+    .catch(err => {
+        console.error('Error loading SVG:', err);
+        console.error('Error details:', err.message, err.stack);
+    });
+		
         fetch('img/rdc_back.svg')
                 .then(response => response.text())
                 .then(svgText => {
@@ -281,6 +273,7 @@ fetch('img/rdc_front.svg')
 
 
 </html>
+
 
 
 
