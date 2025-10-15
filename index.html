@@ -38,8 +38,8 @@
 
 
     <!-- Container for the SVG -->
-    <div id="prcFront"></div>
-    <div id="prcBack"></div>
+    <div id="rdcFront"></div>
+    <div id="rdcBack"></div>
     <p> The iRDC was created thanks to MAJ Filip's inspiration with the PH2x1 iPRC (thanks Kevin).
         To suggest additional improvements email: <a href="mailto:dave.pert@westpoint.edu">dave.pert@westpoint.edu</a>
     </p>
@@ -135,14 +135,14 @@
             }
         }
         // Fetch and embed the SVG
-        fetch('img/prc_front.svg')
+        fetch('img/rdc_front.svg')
             .then(response => response.text())
             .then(svgText => {
                 // Insert SVG into the DOM
-                document.getElementById('prcFront').innerHTML = svgText;
+                document.getElementById('rdcFront').innerHTML = svgText;
 
                 // Get the SVG element
-                var svgElement = document.getElementById('prcFront').querySelector('svg');
+                var svgElement = document.getElementById('rdcFront').querySelector('svg');
 
                 // Ensure SVG is properly namespaced
                 if (!svgElement) {
@@ -221,5 +221,6 @@
         <p><span style="color:red">YOU WILL NOT HAVE THIS VERSION OF THE RDC ON ANY EXAM</span> </p>
     </h3>
 </body>
+
 
 </html>
