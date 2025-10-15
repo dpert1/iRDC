@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>iRDC: The Interactive Reference Data Card</title>
+    <style>
+        /* Popup styling */
+        #equationPopup {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid black;
+            padding: 10px;
+            z-index: 1000;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: red;
+        }
+    </style>
+    <!-- MathJax for rendering LaTeX -->
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <h1>iRDC: The Interactive Reference Data Card</h1>
+    <h3>
+        <p><span style="color:red">YOU WILL NOT HAVE THIS VERSION OF THE RDC ON ANY EXAM</span> </p>
+    </h3>
+
+
+    <!-- Container for the SVG -->
+    <div id="prcFront"></div>
+    <div id="prcBack"></div>
+    <p> The iRDC was created thanks to MAJ Filip's inspiration with the PH2x1 iPRC (thanks Kevin).
+        To suggest additional improvements email: <a href="mailto:dave.pert@westpoint.edu">dave.pert@westpoint.edu</a>
+    </p>
+    <!-- Popup for displaying LaTeX equations -->
+    <div id="equationPopup">
+        <span class="close-btn" onclick="closePopup()">Close X</span>
+        <div id="latexContent"></div>
+    </div>
+
+    <script>
+        // Function to load and display LaTeX content
+        function loadContent(filename, event, column) {
+            fetch(filename)
+                .then(response => response.text())
+                .then(content => {
+                    showPopup(content, event, column);
+                })
+                .catch(err => console.error('Error loading content:', err));
+        }
+
+        // Function to show the popup
+        function showPopup(content, event, column) {
+            var popup = document.getElementById('equationPopup');
+            var latexContainer = document.getElementById('latexContent');
+
+            // Set the content
+            latexContainer.innerHTML = content;
+            popup.style.display = 'block';
+            var offset_y = 30;
+
+            if (column == "left" | column == "middle") {
+                offset_x = 0;
+                popup.style.top = (event.pageY + offset_y) + 'px';
+                popup.style.left = (event.pageX + offset_x) + 'px';
+            }
+            else {
+                // Calculate the center position
+                var viewportHeight = window.innerHeight;
+                var viewportWidth = window.innerWidth;
+                var popupHeight = popup.offsetHeight;
+                var popupWidth = popup.offsetWidth;
+
+                popup.style.top = (event.pageY + offset_y) + 'px';
+                popup.style.left = (viewportWidth / 2.5 - popupWidth) + 'px';
+
+            }
+
+
+            // Position the popup
+
+
+            // Render LaTeX
+            MathJax.typesetPromise();
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('equationPopup').style.display = 'none';
+        }
+        // Function to initialize rectangle attributes
+        function initializeRectangle(area) {
+            area.style.fill = 'transparent'; // Original state
+            area.style.stroke = 'none';
+            area.style.cursor = 'pointer';                  // Optional: change cursor on hover
+        }
+        // Functions to handle hover effects
+        function addHoverEffect(area) {
+            area.style.fill = 'rgba(255, 215, 0, 0.25)'; // Gold with transparency
+            //area.style.stroke = 'black';
+            //area.style.strokeWidth = '2px';
+        }
+
+        function removeHoverEffect(area) {
+            area.style.fill = 'transparent'; // Original state
+            area.style.stroke = 'none';
+        }
+        function initializeClickableArea(svgElement, areaId, contentUrl, column) {
+            var clickableArea = svgElement.getElementById(areaId);
+            console.log('Initializing clickable area:', areaId, clickableArea);
+            if (clickableArea) {
+                initializeRectangle(clickableArea);
+                clickableArea.addEventListener('click', function (event) {
+                    loadContent(contentUrl, event, column);
+                });
+                clickableArea.addEventListener('mouseover', function () {
+                    addHoverEffect(clickableArea);
+                });
+                clickableArea.addEventListener('mouseout', function () {
+                    removeHoverEffect(clickableArea);
+                });
+            } else {
+                console.warn('Clickable area ' + areaId + ' not found in SVG.');
+            }
+        }
+        // Fetch and embed the SVG
+        fetch('img/prc_front.svg')
+            .then(response => response.text())
+            .then(svgText => {
+                // Insert SVG into the DOM
+                document.getElementById('prcFront').innerHTML = svgText;
+
+                // Get the SVG element
+                var svgElement = document.getElementById('prcFront').querySelector('svg');
+
+                // Ensure SVG is properly namespaced
+                if (!svgElement) {
+                    console.error('SVG element not found');
+                    return;
+                }
+                initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
+		initializeClickableArea(svgElement,'prc-2','equations/number-density/eq02_mass_fraction.html','left');
+		initializeClickableArea(svgElement,'prc-3','equations/number-density/eq03_effective_atomic_mass.html','middle');
+		initializeClickableArea(svgElement,'prc-4','equations/number-density/eq04_number_density_atomic.html','left');
+		initializeClickableArea(svgElement,'prc-5','equations/number-density/eq05_mixture_density.html','left');
+		initializeClickableArea(svgElement,'prc-6','equations/number-density/eq06_number_density_mass.html','middle');
+		initializeClickableArea(svgElement,'prc-7','equations/modern-physics/eq07_kinetic_energy_relativistic.html','middle');
+		initializeClickableArea(svgElement,'prc-8','equations/modern-physics/eq08_rest_energy.html','right');
+		initializeClickableArea(svgElement,'prc-9','equations/modern-physics/eq09_relativistic_mass.html','right');
+		initializeClickableArea(svgElement,'prc-10','equations/modern-physics/eq10_de_broglie_wavelength.html','middle');
+		initializeClickableArea(svgElement,'prc-11','equations/modern-physics/eq11_photon_energy.html','right');
+		initializeClickableArea(svgElement,'prc-12','equations/modern-physics/eq12_photon_momentum.html','right');
+		initializeClickableArea(svgElement,'prc-13','equations/nuclear-energetics/eq13_semi-empirical_mass_formula.html','left');
+		initializeClickableArea(svgElement,'prc-14','equations/nuclear-energetics/eq14_binding_energy_from_masses.html','left');
+		initializeClickableArea(svgElement,'prc-15','equations/nuclear-energetics/eq15_neutron_separation_energy.html','left');
+		initializeClickableArea(svgElement,'prc-16','equations/nuclear-energetics/eq16_proton_separation_energy.html','middle');
+		initializeClickableArea(svgElement,'prc-17','equations/nuclear-energetics/eq17_q-value_from_masses.html','left');
+		initializeClickableArea(svgElement,'prc-18','equations/nuclear-energetics/eq18_q-value_from_kinetic_energy_change.html','middle');
+		initializeClickableArea(svgElement,'prc-19','equations/nuclear-energetics/eq19_general_two-body_q_relation.html','left');
+		initializeClickableArea(svgElement,'prc-20','equations/radioactivity/eq20_number_of_atoms_from_mass.html','left');
+		initializeClickableArea(svgElement,'prc-21','equations/radioactivity/eq21_activity-number_relation.html','left');
+		initializeClickableArea(svgElement,'prc-22','equations/radioactivity/eq22_half-life.html','left');
+		initializeClickableArea(svgElement,'prc-23','equations/radioactivity/eq23_mean_lifetime.html','left');
+		initializeClickableArea(svgElement,'prc-24','equations/radioactivity/eq24_exponential_decay_of_nuclei.html','left');
+		initializeClickableArea(svgElement,'prc-25','equations/radioactivity/eq25_exponential_decay_of_activity.html','left');
+		initializeClickableArea(svgElement,'prc-26','equations/binary-reactions/eq26_approximate_kinetic_energy_after_reaction.html','left');
+		initializeClickableArea(svgElement,'prc-27','equations/binary-reactions/eq27_coulomb_barrier_estimate.html','left');
+		initializeClickableArea(svgElement,'prc-28','equations/binary-reactions/eq28_excitation_energy.html','left');
+		initializeClickableArea(svgElement,'prc-29','equations/binary-reactions/eq29_threshold_energy.html','left');
+		initializeClickableArea(svgElement,'prc-30','equations/radiation-interactions/eq30_attenuation_of_intensity.html','middle');
+		initializeClickableArea(svgElement,'prc-31','equations/radiation-interactions/eq31_flux_attenuation.html','right');
+		initializeClickableArea(svgElement,'prc-32','equations/radiation-interactions/eq32_mean_free_path_photon.html','middle');
+		initializeClickableArea(svgElement,'prc-33','equations/radiation-interactions/eq33_mean_free_path_neutron.html','right');
+		initializeClickableArea(svgElement,'prc-34','equations/radiation-interactions/eq34_linear_attenuation_and_density.html','middle');
+		initializeClickableArea(svgElement,'prc-35','equations/radiation-interactions/eq35_macroscopic_total_cross_section.html','right');
+		initializeClickableArea(svgElement,'prc-36','equations/radiation-interactions/eq36_mass_attenuation_coefficient_composition.html','middle');
+		initializeClickableArea(svgElement,'prc-37','equations/radiation-interactions/eq37_macroscopic_cross_section.html','right');
+		initializeClickableArea(svgElement,'prc-38','equations/radiation-interactions/eq38_mass_attenuation_for_mixtures.html','middle');
+		initializeClickableArea(svgElement,'prc-39','equations/radiation-interactions/eq39_point_source_flux_with_attenuation.html','right');
+		initializeClickableArea(svgElement,'prc-40','equations/reactor-physics/eq40_scattering_energy_transfer.html','left');
+		initializeClickableArea(svgElement,'prc-41','equations/reactor-physics/eq41_average_scattered_energy.html','left');
+		initializeClickableArea(svgElement,'prc-42','equations/reactor-physics/eq42_minimum_scattered_energy.html','middle');
+		initializeClickableArea(svgElement,'prc-43','equations/reactor-physics/eq43_kinematic_factor.html','middle');
+		initializeClickableArea(svgElement,'prc-44','equations/reactor-physics/eq44_log-energy_transfer.html','left');
+		initializeClickableArea(svgElement,'prc-45','equations/reactor-physics/eq45_number_of_collisions_for_energy_change.html','middle');
+		initializeClickableArea(svgElement,'prc-46','equations/reactor-physics/eq46_reaction_rate_ri.html','left');
+		initializeClickableArea(svgElement,'prc-47','equations/reactor-physics/eq47_effective_multiplication_factor.html','left');
+		initializeClickableArea(svgElement,'prc-48','equations/reactor-physics/eq48_infinite_multiplication_factor.html','left');
+		initializeClickableArea(svgElement,'prc-49','equations/reactor-physics/eq49_fast_non-leakage_probability.html','left');
+		initializeClickableArea(svgElement,'prc-50','equations/reactor-physics/eq50_thermal_non-leakage_probability.html','left');
+		initializeClickableArea(svgElement,'prc-51','equations/reactor-physics/eq51_thermal_utilization_factor.html','middle');
+		initializeClickableArea(svgElement,'prc-52','equations/reactor-physics/eq52_reproduction_factor.html','right');
+            })
+            .catch(err => console.error('Error loading SVG:', err));
+
+        fetch('img/prc_back.svg')
+                .then(response => response.text())
+                .then(svgText => {
+                    document.getElementById('prcBack').innerHTML = svgText;
+                    var newSvgElement = document.getElementById('prcBack').querySelector('svg');
+                    if (!newSvgElement) {
+                        console.error('New SVG element not found');
+                        return;
+                    }
+                    // Initialize clickable areas for the new SVG if needed
+                    // initializeClickableArea(newSvgElement, 'new-area-1', 'some-url.html', 'left');
+                });
+    </script>
+    <h3>
+        <p><span style="color:red">YOU WILL NOT HAVE THIS VERSION OF THE RDC ON ANY EXAM</span> </p>
+    </h3>
+</body>
+
+</html>
