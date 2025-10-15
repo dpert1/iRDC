@@ -219,8 +219,9 @@ fetch('img/rdc_front.svg')
 				initializeClickableArea(svgElement,'prc-50','equations/reactor-physics/eq50_thermal_non-leakage_probability.html','left');
 				initializeClickableArea(svgElement,'prc-51','equations/reactor-physics/eq51_thermal_utilization_factor.html','middle');
 				initializeClickableArea(svgElement,'prc-52','equations/reactor-physics/eq52_reproduction_factor.html','right');
-            })
-            .catch(err => console.error('Error loading SVG:', err));
+           }, 10); // Small delay to ensure DOM is updated
+    })
+    .catch(err => console.error('Error loading SVG:', err));
 
         fetch('img/rdc_back.svg')
                 .then(response => response.text())
@@ -242,6 +243,7 @@ fetch('img/rdc_front.svg')
 
 
 </html>
+
 
 
 
