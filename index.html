@@ -137,62 +137,22 @@
         // Fetch and embed the SVG
         // Fetch and embed the SVG
 // Fetch and embed the SVG
-fetch('img/rdc_front.svg')
-    .then(response => {
-        console.log('Response status:', response.status);
-        console.log('Response OK:', response.ok);
-        return response.text();
-    })
-    .then(svgText => {
-        console.log('SVG text length:', svgText.length);
-        console.log('First 500 chars of SVG:', svgText.substring(0, 500));
-        
-        // Insert SVG into the DOM
-        document.getElementById('rdcFront').innerHTML = svgText;
-        
-        // Check what's actually in the DOM immediately
-        console.log('Immediate DOM check:', document.getElementById('rdcFront').children.length, 'children');
-        console.log('First child:', document.getElementById('rdcFront').firstElementChild);
-        
-        // Wait a moment for the DOM to update, then get the SVG element
-        setTimeout(() => {
-            console.log('After timeout - rdcFront children:', document.getElementById('rdcFront').children);
-            console.log('After timeout - rdcFront innerHTML length:', document.getElementById('rdcFront').innerHTML.length);
-            
-            // Try multiple ways to get the SVG element
-            var svgElement = document.getElementById('svg8581');
-            console.log('Try 1 - getElementById("svg8581"):', svgElement);
-            
-            if (!svgElement) {
-                svgElement = document.getElementById('rdcFront').querySelector('svg');
-                console.log('Try 2 - querySelector("svg"):', svgElement);
-            }
-            
-            if (!svgElement) {
-                svgElement = document.getElementById('rdcFront').firstElementChild;
-                console.log('Try 3 - firstElementChild:', svgElement);
-                if (svgElement) {
-                    console.log('First child tag name:', svgElement.tagName);
-                    console.log('First child id:', svgElement.id);
-                }
-            }
-            
-            // Check all elements with tag name svg
-            var allSvgs = document.getElementsByTagName('svg');
-            console.log('All SVG elements in document:', allSvgs.length);
-            for (let i = 0; i < allSvgs.length; i++) {
-                console.log('SVG', i, '- id:', allSvgs[i].id, 'parent:', allSvgs[i].parentElement.id);
-            }
-            
-            if (!svgElement) {
-                console.error('SVG element not found after trying multiple methods');
-                // Show the actual content
-                var content = document.getElementById('rdcFront').innerHTML;
-                console.log('rdcFront full contents:', content);
-                return;
-            }
-            
-            console.log('SVG element found:', svgElement);
+document.getElementById('rdcFront').innerHTML = `
+    <svg id="svg8581" width="187mm" height="247mm" viewBox="0 0 187 247">
+        <rect id="prc-1" x="10" y="10" width="50" height="50" fill="lightblue"/>
+        <rect id="prc-2" x="70" y="10" width="50" height="50" fill="lightgreen"/>
+        <text x="20" y="40">Test SVG</text>
+    </svg>
+`;
+
+setTimeout(() => {
+    var svgElement = document.getElementById('svg8581');
+    console.log('Test SVG found:', svgElement);
+    if (svgElement) {
+        initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
+        initializeClickableArea(svgElement,'prc-2','equations/number-density/eq02_mass_fraction.html','left');
+    }
+}, 100);
             
                 initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
 				initializeClickableArea(svgElement,'prc-2','equations/number-density/eq02_mass_fraction.html','left');
@@ -273,6 +233,7 @@ fetch('img/rdc_front.svg')
 
 
 </html>
+
 
 
 
