@@ -204,11 +204,11 @@
             })
             .catch(err => console.error('Error loading SVG:', err));
 
-        fetch('img/prc_back.svg')
+        fetch('img/rdc_back.svg')
                 .then(response => response.text())
                 .then(svgText => {
-                    document.getElementById('prcBack').innerHTML = svgText;
-                    var newSvgElement = document.getElementById('prcBack').querySelector('svg');
+                    document.getElementById('rdcBack').innerHTML = svgText;
+                    var newSvgElement = document.getElementById('rdcBack').querySelector('svg');
                     if (!newSvgElement) {
                         console.error('New SVG element not found');
                         return;
@@ -224,4 +224,5 @@
 
 
 </html>
+
 
