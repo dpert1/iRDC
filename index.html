@@ -5,25 +5,90 @@
     <meta charset="UTF-8">
     <title>iRDC: The Interactive Reference Data Card</title>
     <style>
+        /* Page styling */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Container styling */
+        #rdcContainer {
+            display: flex;
+            justify-content: center;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
         /* Popup styling */
         #equationPopup {
             display: none;
             position: absolute;
             background-color: #fff;
-            border: 1px solid black;
-            padding: 10px;
+            border: 1px solid #ccc;
+            padding: 20px;
             z-index: 1000;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 300px;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        #latexContent {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        #latexContent .equation {
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        #latexContent h1 {
+            font-size: 1.2em;
+            margin: 0 0 15px 0;
+        }
+
+        #latexContent h2 {
+            font-size: 1.1em;
+            margin: 15px 0 8px 0;
+        }
+
+        #latexContent ul {
+            margin: 8px 0;
+            padding-left: 25px;
+        }
+
+        #latexContent li {
+            margin: 4px 0;
         }
 
         .close-btn {
             position: absolute;
-            top: 5px;
-            right: 10px;
+            top: 10px;
+            right: 15px;
             cursor: pointer;
             font-size: 14px;
-            color: red;
+            color: #e74c3c;
+            transition: color 0.3s ease;
+            padding: 5px;
+        }
+
+        .close-btn:hover {
+            color: #c0392b;
+        }
+
+        .warning {
+            color: #e74c3c;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
     <!-- MathJax for rendering LaTeX -->
@@ -32,15 +97,12 @@
 
 <body>
     <h1>iRDC: The Interactive Reference Data Card</h1>
-    <h3>
-        <p><span style="color:red">YOU WILL NOT HAVE THIS VERSION OF THE RDC ON ANY EXAM</span> </p>
-    </h3>
-
+    <h3 class="warning">YOU WILL NOT HAVE THIS VERSION OF THE RDC ON ANY EXAM</h3>
 
     <!-- Container for the SVG -->
-    <div id="rdcFront"></div>
-    <div id="rdcBack"></div>
-    <p> The iRDC was created thanks to MAJ Filip's inspiration with the PH2x1 iPRC (thanks Kevin).
+    <div id="rdcContainer"></div>
+    <p>
+        The iRDC was created thanks to MAJ Filip's inspiration with the PH2x1 iPRC (thanks Kevin).
         To suggest additional improvements email: <a href="mailto:dave.pert@westpoint.edu">dave.pert@westpoint.edu</a>
     </p>
     <!-- Popup for displaying LaTeX equations -->
@@ -70,22 +132,36 @@
             popup.style.display = 'block';
             var offset_y = 30;
 
-            if (column == "left" || column == "middle") {
-                offset_x = 0;
-                popup.style.top = (event.pageY + offset_y) + 'px';
-                popup.style.left = (event.pageX + offset_x) + 'px';
+            // First position the popup
+            popup.style.top = (event.pageY + offset_y) + 'px';
+            
+            // Calculate available space
+            const viewportWidth = window.innerWidth;
+            const clickX = event.pageX;
+            
+            if (column === "left" || column === "middle") {
+                // For left/middle columns, try to position right of click
+                const rightSpace = viewportWidth - clickX;
+                if (rightSpace >= 650) { // enough space to the right
+                    popup.style.left = (clickX + 20) + 'px';
+                } else { // position to the left
+                    popup.style.left = Math.max(20, clickX - 620) + 'px';
+                }
+            } else {
+                // For right column always position more to the left
+                popup.style.left = Math.max(20, viewportWidth / 2.5 - 300) + 'px';
             }
-            else {
-                // Calculate the center position
-                var viewportHeight = window.innerHeight;
-                var viewportWidth = window.innerWidth;
-                var popupHeight = popup.offsetHeight;
-                var popupWidth = popup.offsetWidth;
-
-                popup.style.top = (event.pageY + offset_y) + 'px';
-                popup.style.left = (viewportWidth / 2.5 - popupWidth) + 'px';
-
-            }
+            
+            // Ensure popup is fully visible
+            setTimeout(() => {
+                const rect = popup.getBoundingClientRect();
+                if (rect.right > viewportWidth) {
+                    popup.style.left = (viewportWidth - rect.width - 20) + 'px';
+                }
+                if (rect.left < 0) {
+                    popup.style.left = '20px';
+                }
+            }, 0);
 
 
             // Position the popup
@@ -139,14 +215,14 @@
             .then(response => response.text())
             .then(svgText => {
                 // Insert SVG into the DOM
-                document.getElementById('rdcFront').innerHTML = svgText;
+                document.getElementById('rdcContainer').innerHTML = svgText;
 
                 // Get the SVG element
-                var svgElement = document.getElementById('rdcFront').querySelector('svg');
+                const svgElement = document.getElementById('rdcContainer').querySelector('svg');
 
                 // Ensure SVG is properly namespaced
                 if (!svgElement) {
-                    console.error('SVG element not found');
+                    console.error('SVG element not found in container');
                     return;
                 }
                 initializeClickableArea(svgElement,'prc-1','equations/number-density/eq01_weighted_atomic_mass.html','left');
@@ -205,9 +281,7 @@
             .catch(err => console.error('Error loading SVG:', err));
 
     </script>
-    <h3>
-        <p><span style="color:red">YOU WILL NOT HAVE THIS VERSION OF THE RDC ON ANY EXAM</span> </p>
-    </h3>
+    <h3 class="warning">YOU WILL NOT HAVE THIS VERSION OF THE RDC ON ANY EXAM</h3>
 </body>
 
 
