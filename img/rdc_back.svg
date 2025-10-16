@@ -2480,67 +2480,65 @@
          y="401.12299"
          id="use440" /></g></g><g
      id="layer1"
-     transform="matrix(0.99999679,0,0,1.0095984,0.42356916,-0.32531518)"><rect
-       style="fill:#ffffff;fill-opacity:0.739286;stroke:#000000;stroke-width:0.120254;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     transform="matrix(0.99999679,0,0,1.0095984,0.42356916,-0.32531518)">
+     <!-- Reset clickable areas to be transparent but interactive -->
+     <style type="text/css">
+        rect[id^="prc-"] {
+            fill: transparent !important;
+            stroke: none !important;
+            pointer-events: all;
+            opacity: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        rect[id^="prc-"]:hover {
+            fill: rgba(255, 215, 0, 0.25) !important;
+            opacity: 1;
+        }
+     </style>
+     <rect
+       style="fill:transparent;stroke:none;pointer-events:all"
        id="prc-48"
        width="29.155384"
        height="7.8197117"
        x="46.821293"
        y="94.372696"
-       ry="1.0375479"
-       onmouseover=""
-       onclick=""
-       onload="    fill=&quot;transparent&quot;&#10;    stroke=&quot;none&quot;&#10;    pointer-events=&quot;all&quot;&#10;    opacity=&quot;1&quot;" /><rect
-       style="fill:#ffffff;fill-opacity:0.739286;stroke:#000000;stroke-width:0.11386;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       ry="1.0375479" /><rect
+       style="fill:transparent;stroke:none;pointer-events:all"
        id="prc-45"
        width="29.476398"
        height="10.082417"
        x="45.951305"
        y="65.715645"
-       ry="1.3377719"
-       onmouseover=""
-       onclick=""
-       onload="    fill=&quot;transparent&quot;&#10;    stroke=&quot;none&quot;&#10;    pointer-events=&quot;all&quot;&#10;    opacity=&quot;1&quot;" /><rect
-       style="fill:#ffffff;fill-opacity:0.739286;stroke:#000000;stroke-width:0.146507;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       ry="1.3377719" /><rect
+       style="fill:transparent;stroke:none;pointer-events:all"
        id="prc-43"
        width="33.533794"
        height="10.091214"
        x="91.650627"
        y="50.185604"
-       ry="1.3389391"
-       onmouseover=""
-       onclick=""
-       onload="    fill=&quot;transparent&quot;&#10;    stroke=&quot;none&quot;&#10;    pointer-events=&quot;all&quot;&#10;    opacity=&quot;1&quot;" /><rect
-       style="fill:#ffffff;fill-opacity:0.739286;stroke:#000000;stroke-width:0.104207;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       ry="1.3389391" /><rect
+       style="fill:transparent;stroke:none;pointer-events:all"
        id="prc-40"
        width="85.036705"
        height="10.447409"
        x="3.0374882"
        y="33.917992"
-       ry="1.3862004"
-       onmouseover=""
-       onclick=""
-       onload="    fill=&quot;transparent&quot;&#10;    stroke=&quot;none&quot;&#10;    pointer-events=&quot;all&quot;&#10;    opacity=&quot;1&quot;" /><rect
-       style="fill:#ffffff;fill-opacity:0.739286;stroke:#000000;stroke-width:0.1192;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       ry="1.3862004" /><rect
+       style="fill:transparent;stroke:none;pointer-events:all"
        id="prc-41"
        width="33.592861"
        height="9.8144922"
        x="3.5544779"
        y="50.065067"
-       ry="1.3022227"
-       onmouseover=""
-       onclick=""
-       onload="    fill=&quot;transparent&quot;&#10;    stroke=&quot;none&quot;&#10;    pointer-events=&quot;all&quot;&#10;    opacity=&quot;1&quot;" /><rect
-       style="fill:#ffffff;fill-opacity:0.739286;stroke:#000000;stroke-width:0.134236;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       ry="1.3022227" /><rect
+       style="fill:transparent;stroke:none;pointer-events:all"
        id="prc-42"
        width="27.600071"
        height="6.9809856"
        x="46.640995"
        y="51.911037"
-       ry="0.92626274"
-       onmouseover=""
-       onclick=""
-       onload="    fill=&quot;transparent&quot;&#10;    stroke=&quot;none&quot;&#10;    pointer-events=&quot;all&quot;&#10;    opacity=&quot;1&quot;" /><rect
+       ry="0.92626274" /><rect
        style="fill:#ffffff;fill-opacity:0.739286;stroke:#000000;stroke-width:0.132212;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="prc-44"
        width="34.334633"
