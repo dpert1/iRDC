@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Equation 2: Mass Fraction wx</title>
+  <title>Equation 30: Attenuation of Intensity (Beer-Lambert)</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
@@ -17,14 +17,17 @@
   </style>
 </head>
 <body>
-  <h1>Equation 2: Mass Fraction wx</h1>
+  <h1>Equation 30: Attenuation of Intensity (Beer-Lambert)</h1>
   <h2>Equation:</h2>
-  <div class="equation">\[w_x = \frac{n A_x}{n A_x + m A_y}\]</div>
+  <div class="equation">\[I(x) = I_0 e^{-\mu_t x}\]</div>
   <h2>Variables:</h2>
   <ul>
-    <li>\(w_x\): Mass fraction of component x</li>\n<li>\(n\): number of moles of x</li>\n<li>\(A_x\): atomic mass of x</li>\n<li>\(m\): number of moles of y</li>\n<li>\(A_y\): atomic mass of y</li>
+    <li>\(I(x)\): intensity at depth x</li>
+    <li>\(I_0\): initial intensity</li>
+    <li>\(\mu_t\): linear attenuation coefficient</li>
+    <li>\(x\): thickness</li>
   </ul>
   <h2>Description:</h2>
-  <p>Mass fraction of component x in a two-component mixture expressed using mole counts and atomic masses.</p>
+  <p>Exponential attenuation of beam intensity by a material with linear attenuation coefficient \mu_t.</p>
 </body>
 </html>

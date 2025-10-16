@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Equation 13: Semi-empirical Mass (Weizsäcker) Formula</title>
+  <title>Equation 4: Number Density Ni (from γ)</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
@@ -17,14 +17,18 @@
   </style>
 </head>
 <body>
-  <h1>Equation 13: Semi-empirical Mass (Weizsäcker) Formula</h1>
+  <h1>Equation 4: Number Density Ni (from γ)</h1>
   <h2>Equation:</h2>
-  <div class="equation">\[E_B = a_v A - a_s A^{2/3} - a_c \frac{Z^2}{A^{1/3}} - a_a \frac{(A-2Z)^2}{A} \pm a_p A^{-1/2}\]</div>
+  <div class="equation">\[N_i = \frac{\gamma_i \rho_x N_A}{A_x}\]</div>
   <h2>Variables:</h2>
   <ul>
-    <li>\(E_B\): Binding energy [MeV]</li>\n<li>\(a_v,a_s,a_c,a_a,a_p\): Weizsäcker coefficients (volume, surface, coulomb, asymmetry, pairing)</li>\n<li>\(A\): mass number</li>\n<li>\(Z\): atomic number</li>
+    <li>\(N_i\): Number density of species i [particles/cm^3]</li>
+    <li>\(\gamma_i\): fractional abundance of i</li>
+    <li>\(\rho_x\): mixture density [g/cm^3]</li>
+    <li>\(N_A\): Avogadro&#x27;s number</li>
+    <li>\(A_x\): effective atomic mass</li>
   </ul>
   <h2>Description:</h2>
-  <p>Semi-empirical mass formula estimating nuclear binding energy from macroscopic terms (volume, surface, Coulomb, asymmetry) and pairing.</p>
+  <p>Number density (particles per unit volume) for component i computed from its fraction, density and Avogadro&#x27;s number.</p>
 </body>
 </html>
