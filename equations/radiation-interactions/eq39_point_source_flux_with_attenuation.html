@@ -22,13 +22,19 @@
   <div class="equation">\[\phi(r) = \frac{S_p}{4\pi r^2} e^{-\Sigma_t x}\]</div>
   <h2>Variables:</h2>
   <ul>
-    <li>\(\phi(r)\): Neutron flux at distance r [1/(cm<sup>2</sup>-s)]</li>
-    <li>\(S_p\): Source strength [neutrons/s]</li>
+    <li>\(\phi(r)\): Flux at distance r [1/(cm<sup>2</sup>-s)]</li>
+    <li>\(S_p\): Source strength [particles/s]</li>
     <li>\(r\): Distance [cm]</li>
-    <li>\(\Sigma_t\): Total macroscopic cross section [1/cm]</li>
+    <li>
+      <div style="display:inline-block; vertical-align:top;">
+        \(\Sigma_t\): Total macroscopic cross section [1/cm]<br>
+        <span style="display:block; text-align:center; margin:0.25rem 0; font-style:italic">-Or, if working with photons-</span>
+        \(\mu_t\): Linear attenuation coefficient [1/cm]
+      </div>
+    </li>
     <li>\(x\): Shield or medium thickness [cm]</li>
   </ul>
   <h2>Description:</h2>
-  <p>Flux from a point source decreases with inverse square law and exponential attenuation in the medium. Applicable for photons but with &mu; instead of &Sigma;</p>
+  <p>This equation works for both neutrons and photons as geometric and exponential attenuation operate in the same way. Flux from a point source decreases with inverse square law and exponential attenuation in the medium. Applicable for photons but with &mu; instead of &Sigma;</p>
 </body>
 </html>
